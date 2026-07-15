@@ -1,0 +1,302 @@
+/* ========== 全局重置 ========== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    min-height: 100vh;
+    color: #e0e0e0;
+}
+.hidden { display: none !important; }
+
+/* ========== 登录页 ========== */
+#login-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+.login-box {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    padding: 48px 40px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+}
+.login-box h1 {
+    font-size: 28px;
+    text-align: center;
+    background: linear-gradient(135deg, #f093fb, #f5576c, #4facfe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+}
+.login-box .sub {
+    text-align: center;
+    color: #8888aa;
+    font-size: 13px;
+    margin-bottom: 32px;
+}
+.login-box input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.3s;
+    margin-bottom: 14px;
+}
+.login-box input::placeholder { color: #666688; }
+.login-box input:focus { border-color: #4facfe; }
+.login-box .btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.login-box .btn:hover { transform: scale(1.02); }
+.login-box .err {
+    color: #f5576c;
+    font-size: 13px;
+    margin-top: 12px;
+    text-align: center;
+    min-height: 20px;
+}
+
+/* ========== 主界面 ========== */
+#app {
+    display: none;
+    min-height: 100vh;
+    padding: 16px;
+}
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.06);
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.topbar .logo {
+    font-size: 18px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.topbar .nav {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+.topbar .nav span {
+    padding: 8px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #8888aa;
+    transition: all 0.3s;
+}
+.topbar .nav span:hover { background: rgba(255,255,255,0.06); }
+.topbar .nav span.active {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: #fff;
+}
+.topbar .user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: #aaaacc;
+}
+.topbar .user button {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.08);
+    color: #ddd;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s;
+}
+.topbar .user button:hover { background: rgba(255,255,255,0.15); }
+
+/* ========== 面板 ========== */
+.panel {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+}
+.panel h3 {
+    font-size: 15px;
+    margin-bottom: 14px;
+    color: #ccccee;
+}
+.search-bar {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.search-bar input {
+    flex: 1;
+    min-width: 150px;
+    padding: 12px 16px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.05);
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+}
+.search-bar input::placeholder { color: #666688; }
+.search-bar input:focus { border-color: #4facfe; }
+.search-bar select {
+    padding: 12px 16px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.05);
+    color: #ccc;
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
+}
+.search-bar select option { background: #1a1a2e; }
+.search-bar .btn {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.search-bar .btn:hover { transform: scale(1.03); }
+
+/* ========== 列表 ========== */
+.rlist {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.ritem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.03);
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.ritem:hover {
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(79,172,254,0.2);
+}
+.ritem .ri { flex: 1; min-width: 120px; }
+.ritem .rt { font-weight: 600; font-size: 14px; }
+.ritem .rs { color: #8888aa; font-size: 12px; }
+.ritem .rd { color: #666688; font-size: 12px; }
+.ritem .rts {
+    font-size: 10px;
+    padding: 2px 10px;
+    border-radius: 20px;
+    background: rgba(79,172,254,0.15);
+    color: #4facfe;
+}
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #666688;
+}
+.form-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+.form-row input, .form-row select {
+    flex: 1;
+    min-width: 120px;
+    padding: 10px 14px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+    color: #fff;
+    font-size: 13px;
+    outline: none;
+}
+.form-row input::placeholder { color: #666688; }
+.form-row input:focus { border-color: #4facfe; }
+.form-row select option { background: #1a1a2e; }
+.btn-sm {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: #fff;
+    font-size: 12px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.btn-sm:hover { transform: scale(1.05); }
+.btn-sm.danger { background: linear-gradient(135deg, #f5576c, #ff6b81); }
+.pitem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.pitem:last-child { border: none; }
+.pitem .pn { font-weight: 600; font-size: 13px; }
+
+/* ========== Toast ========== */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 24px;
+    border-radius: 12px;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(12px);
+    color: #fff;
+    font-size: 14px;
+    z-index: 999;
+    display: none;
+    max-width: 90%;
+}
+.toast.err { background: rgba(245,87,108,0.9); }
+
+/* ========== 响应式 ========== */
+@media (max-width: 700px) {
+    .topbar { flex-direction: column; align-items: stretch; }
+    .topbar .nav { justify-content: center; }
+    .topbar .user { justify-content: center; }
+    .search-bar { flex-direction: column; }
+    .search-bar input, .search-bar select, .search-bar .btn { width: 100%; }
+}

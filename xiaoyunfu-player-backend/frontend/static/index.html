@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎧 小云浮音乐耳机 - 管理后台</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    <!-- ========================================================== -->
+    <!-- 登录页 -->
+    <!-- ========================================================== -->
+    <div id="login-page">
+        <div class="login-box">
+            <h1>🎧 小云浮音乐耳机</h1>
+            <p class="sub">管理员后台 · 音视频处理服务</p>
+            <div id="form-login">
+                <input type="text" id="l-username" placeholder="用户名" value="admin">
+                <input type="password" id="l-pass" placeholder="密码">
+                <button class="btn" onclick="doLogin()">登 录</button>
+            </div>
+            <div class="err" id="login-err"></div>
+        </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- 主界面 -->
+    <!-- ========================================================== -->
+    <div id="app">
+        <!-- 顶栏 -->
+        <div class="topbar">
+            <span class="logo">🎧 小云浮音乐耳机</span>
+            <div class="nav">
+                <span class="active" onclick="showPanel(1)">搜索</span>
+                <span onclick="showPanel(2)">歌单</span>
+                <span onclick="showPanel(3)">队列</span>
+            </div>
+            <div class="user">
+                <span id="uname">管理员</span>
+                <button onclick="doLogout()">退出</button>
+            </div>
+        </div>
+
+        <!-- 面板1：搜索 -->
+        <div id="panel-1">
+            <div class="panel">
+                <div class="search-bar">
+                    <input id="kw" placeholder="搜索歌曲...">
+                    <select id="src">
+                        <option value="all">全平台</option>
+                        <option value="bilibili">B站</option>
+                        <option value="netease">网易云</option>
+                        <option value="local">本地</option>
+                    </select>
+                    <button class="btn" onclick="doSearch()">搜索</button>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="rlist" id="rlist"><div class="loading">输入关键词搜索</div></div>
+            </div>
+        </div>
+
+        <!-- 面板2：歌单 -->
+        <div id="panel-2" class="hidden">
+            <div class="panel">
+                <h3>📁 歌单</h3>
+                <div id="pl-list"><div class="loading">加载中...</div></div>
+            </div>
+        </div>
+
+        <!-- 面板3：队列 -->
+        <div id="panel-3" class="hidden">
+            <div class="panel">
+                <h3>⏳ 转码队列</h3>
+                <div id="queue-list"><div class="loading">加载中...</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <!-- ========================================================== -->
+    <!-- JavaScript -->
+    <!-- ========================================================== -->
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
