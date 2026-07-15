@@ -1,9 +1,6 @@
 # ============================================================
 # 小云浮音视频处理服务 - 控制端 Docker 镜像
 # ============================================================
-# 构建命令:
-#   docker build -f Dockerfile.control -t xiaoyunfu-control:latest .
-# ============================================================
 
 FROM python:3.11-slim
 
@@ -17,7 +14,9 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1
 
 # 安装系统依赖（ffmpeg 用于转码）
-RUN apt-get update && apt-get install -y \
+# 使用国内镜像源（阿里云）加速
+RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list.d/debian.sources && \
+    apt-get update && apt-get install -y \
     ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 

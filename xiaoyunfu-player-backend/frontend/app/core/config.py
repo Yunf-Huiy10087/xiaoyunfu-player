@@ -44,7 +44,7 @@ def load_full_config() -> Dict[str, Any]:
         if not Path(CONFIG_PATH).exists():
             raise FileNotFoundError(f"配置文件不存在: {CONFIG_PATH}")
         
-        with open(CONFIG_PATH, 'r', encoding='utf-8') as f:
+        with open(CONFIG_PATH, 'r', encoding='utf-8-sig') as f:
             _config_cache = json.load(f)
     
     return _config_cache

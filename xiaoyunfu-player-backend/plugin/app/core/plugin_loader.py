@@ -274,11 +274,8 @@ class PluginLoader:
         Returns:
             True 重新加载成功，False 失败
         """
-        # 重新加载单个插件
-        # 先找到对应的文件
         for py_file in self.code_dir.glob("*.py"):
-            if py_file.stem == source or py_file.stem == source:
-                # 从缓存中移除旧实例
+            if py_file.stem == source:
                 if source in self.plugins:
                     del self.plugins[source]
                 if source in self.plugin_classes:
@@ -286,7 +283,6 @@ class PluginLoader:
                 if source in self.load_errors:
                     del self.load_errors[source]
                 
-                # 重新加载
                 self._load_plugin_file(py_file)
                 return self.is_loaded(source)
         
@@ -301,9 +297,33 @@ class PluginLoader:
             所有插件实例
         """
         logger.info("🔄 重新加载所有插件...")
-        # 清空现有插件
         self.plugins = {}
         self.plugin_classes = {}
         self.load_errors = {}
-        # 重新加载
         return self.load_all()
+
+
+# ============================================================
+# 全局单例加载器（供 meta.py 和其他模块使用）
+# ============================================================
+
+_loader: Optional[PluginLoader] = None
+
+
+def get_loader() -> PluginLoader:
+    """
+    获取全局插件加载器单例
+    
+    使用方式:
+        from app.core.plugin_loader import get_loader
+        loader = get_loader()
+        plugins = loader.get_all()
+    
+    Returns:
+        PluginLoader 实例
+    """
+    global _loader
+    if _loader is None:
+        _loader = PluginLoader()
+        _loader.load_all()
+    return _loader

@@ -75,7 +75,7 @@ function playSong(songData, url) {
 
     audio.play().catch(function(e) {
         console.warn('播放失败:', e);
-        window.T && window.T('播放失败～～(′Д`)', true);
+        window.toast && window.toast('播放失败～～(′Д`)', true);
     });
 }
 
@@ -99,7 +99,8 @@ function setVolume(value) {
 
 function setSpeed(speed) {
     if (audio) audio.playbackRate = speed;
-    document.querySelector('.pspeed .btn-sm').textContent = '▶' + speed + 'x';
+    var btn = document.querySelector('.pspeed .btn-sm');
+    if (btn) btn.textContent = '▶' + speed + 'x';
     document.getElementById('spd-menu').classList.add('hidden');
 }
 
@@ -196,7 +197,8 @@ window.player = {
     volume: setVolume,
     speed: setSpeed,
     toggleLyric: toggleLyric,
-    toggleInfo: toggleInfo
+    toggleInfo: toggleInfo,
+    isPlaying: function() { return isPlaying; }
 };
 
 console.log('🎵 播放器模块已加载');

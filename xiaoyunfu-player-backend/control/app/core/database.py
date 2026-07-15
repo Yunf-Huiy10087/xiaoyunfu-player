@@ -5,6 +5,7 @@
 1. 管理 SQLite 数据库连接
 2. 创建所有表结构
 3. 提供基础 CRUD 操作
+4. 创建默认管理员账号
 
 文件位置: control/app/core/database.py
 """
@@ -199,21 +200,41 @@ CREATE INDEX IF NOT EXISTS idx_cache_metadata_key ON cache_metadata(cache_key);
 """
 
 
+# ============================================================
+# 4. 初始化数据库
+# ============================================================
+
 def init_db() -> None:
     """
-    初始化数据库：创建所有表
+    初始化数据库：创建所有表 + 默认管理员
     """
     try:
         with get_cursor() as cursor:
             cursor.executescript(SCHEMA)
         logger.info("✅ 数据库表结构初始化完成")
+        
+        # ============================================================
+        # 🔥 创建默认管理员（如果不存在）
+        # ============================================================
+        admin = execute_one("SELECT id FROM users WHERE username = ?", ("admin",))
+        if not admin:
+            from app.core.security import hash_password
+            admin_hash = hash_password("Hi-world")
+            execute_insert(
+                "INSERT INTO users (username, password_hash, is_admin) VALUES (?, ?, ?)",
+                ("admin", admin_hash, 1)
+            )
+            logger.info("✅ 已创建默认管理员: admin / Hi-world")
+        else:
+            logger.debug("✅ 默认管理员已存在")
+        
     except Exception as e:
         logger.error(f"❌ 数据库初始化失败: {e}")
         raise
 
 
 # ============================================================
-# 4. 基础查询方法（封装常用操作）
+# 5. 基础查询方法
 # ============================================================
 
 def execute_query(sql: str, params: tuple = ()) -> List[Dict[str, Any]]:
@@ -283,7 +304,7 @@ def execute_insert(sql: str, params: tuple = ()) -> int:
 
 
 # ============================================================
-# 5. 便捷的用户管理方法
+# 6. 便捷的用户管理方法
 # ============================================================
 
 def get_user_by_username(username: str) -> Optional[Dict[str, Any]]:
@@ -329,7 +350,7 @@ def delete_user(user_id: int) -> bool:
 
 
 # ============================================================
-# 6. 便捷的会话管理方法
+# 7. 便捷的会话管理方法
 # ============================================================
 
 def create_session(user_id: int, token: str, expire_days: int = 30) -> int:
@@ -360,7 +381,7 @@ def delete_all_sessions(user_id: int) -> int:
 
 
 # ============================================================
-# 7. 便捷的账号绑定方法
+# 8. 便捷的账号绑定方法
 # ============================================================
 
 def get_accounts_by_user(user_id: int) -> List[Dict[str, Any]]:
