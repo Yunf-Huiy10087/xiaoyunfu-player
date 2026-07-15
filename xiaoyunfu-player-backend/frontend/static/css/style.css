@@ -1,29 +1,38 @@
 /* ============================================================
-   小云浮音乐耳机 - 完整样式表
+   1. 全局重置 & 基础（旧版主题）
    ============================================================ */
-
-/* ========== 1. 全局重置 ========== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    font-family: system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #e8f4fd, #f0e8f8, #fde8f2);
+    background-size: 400% 400%;
+    animation: grad 15s ease infinite;
     min-height: 100vh;
-    color: #e0e0e0;
+    color: #4a4a6a;
     padding-bottom: 80px;
+}
+@keyframes grad {
+    0% { background-position: 0 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0 50%; }
 }
 .hidden { display: none !important; }
 
-/* ========== 2. 滚动条 ========== */
+/* ============================================================
+   2. 滚动条
+   ============================================================ */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+::-webkit-scrollbar-track { background: rgba(0,0,0,0.04); border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: rgba(120, 180, 248, 0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(120, 180, 248, 0.5); }
 
-/* ========== 3. 登录页 ========== */
+/* ============================================================
+   3. 登录页（旧版主题）
+   ============================================================ */
 #login-page {
     display: flex;
     align-items: center;
@@ -32,92 +41,84 @@ body {
     padding: 20px;
 }
 .login-box {
-    background: rgba(255,255,255,0.06);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 24px;
-    padding: 48px 40px;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(24px);
+    border-radius: 20px;
+    padding: 44px 40px;
+    box-shadow: 0 8px 32px rgba(149, 157, 255, 0.15);
+    max-width: 420px;
     width: 100%;
-    max-width: 400px;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+    text-align: center;
+    border: 1px solid rgba(180, 180, 255, 0.2);
 }
 .login-box h1 {
-    font-size: 28px;
-    text-align: center;
-    background: linear-gradient(135deg, #f093fb, #f5576c, #4facfe);
+    font-size: 26px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #78b8f8, #e898f8, #f8a8c8);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
 }
 .login-box .sub {
-    text-align: center;
-    color: #8888aa;
     font-size: 13px;
-    margin-bottom: 32px;
+    color: #aab;
+    margin-bottom: 28px;
 }
 .login-box input {
     width: 100%;
-    padding: 14px 18px;
-    border: 1px solid rgba(255,255,255,0.1);
+    padding: 13px 16px;
+    border: 2px solid #e8ecff;
     border-radius: 12px;
-    background: rgba(255,255,255,0.05);
-    color: #fff;
     font-size: 15px;
     outline: none;
-    transition: border-color 0.3s;
     margin-bottom: 14px;
+    background: #fff;
+    transition: border-color 0.3s;
 }
-.login-box input::placeholder { color: #666688; }
-.login-box input:focus { border-color: #4facfe; }
+.login-box input:focus { border-color: #8cb4ff; }
 .login-box .btn {
     width: 100%;
     padding: 14px;
+    background: linear-gradient(135deg, #88c8f8, #d8b0f8);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
     border: none;
     border-radius: 12px;
-    background: linear-gradient(135deg, #4facfe, #00f2fe);
-    color: #fff;
-    font-size: 16px;
-    font-weight: 600;
     cursor: pointer;
+    margin-top: 4px;
     transition: transform 0.2s;
 }
 .login-box .btn:hover { transform: scale(1.02); }
 .login-box .err {
-    color: #f5576c;
+    color: #ff6b8a;
     font-size: 13px;
-    margin-top: 12px;
-    text-align: center;
+    margin-top: 8px;
     min-height: 20px;
 }
 
-/* ========== 4. 主布局 ========== */
-#app {
-    display: none;
-    min-height: 100vh;
-    padding: 16px;
-}
-.main-content {
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-/* ========== 5. 顶栏 ========== */
+/* ============================================================
+   4. 顶部导航 & 布局（旧版主题）
+   ============================================================ */
+#app { display: none; }
 .topbar {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid #e8ecff;
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 20px;
-    background: rgba(255,255,255,0.04);
-    border-radius: 16px;
-    border: 1px solid rgba(255,255,255,0.06);
-    margin-bottom: 16px;
     flex-wrap: wrap;
     gap: 8px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
 }
 .topbar .logo {
-    font-size: 18px;
     font-weight: 700;
-    background: linear-gradient(135deg, #f093fb, #f5576c);
+    font-size: 16px;
+    background: linear-gradient(135deg, #78b8f8, #e898f8);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -127,219 +128,269 @@ body {
     flex-wrap: wrap;
 }
 .topbar .nav span {
-    padding: 8px 16px;
-    border-radius: 10px;
+    padding: 7px 14px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 13px;
-    color: #8888aa;
-    transition: all 0.3s;
+    color: #99a;
+    transition: all 0.2s;
 }
-.topbar .nav span:hover { background: rgba(255,255,255,0.06); }
+.topbar .nav span:hover { background: rgba(0,0,0,0.04); }
 .topbar .nav span.active {
-    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    background: linear-gradient(135deg, #88c8f8, #d8b0f8);
     color: #fff;
 }
 .topbar .user {
+    font-size: 13px;
     display: flex;
     align-items: center;
-    gap: 12px;
-    font-size: 13px;
-    color: #aaaacc;
+    gap: 8px;
 }
 .topbar .user button {
-    padding: 6px 14px;
+    background: linear-gradient(135deg, #88c8f8, #d8b0f8);
+    color: #fff;
     border: none;
+    padding: 5px 12px;
     border-radius: 8px;
-    background: rgba(255,255,255,0.08);
-    color: #ddd;
-    cursor: pointer;
     font-size: 12px;
-    transition: all 0.3s;
-}
-.topbar .user button:hover { background: rgba(255,255,255,0.15); }
-
-/* ========== 6. 面板 ========== */
-.panel {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 16px;
-}
-.panel h3 {
-    font-size: 15px;
-    margin-bottom: 14px;
-    color: #ccccee;
-}
-
-/* ========== 7. 搜索栏 ========== */
-.search-bar {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-.search-bar input {
-    flex: 1;
-    min-width: 150px;
-    padding: 12px 16px;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 12px;
-    background: rgba(255,255,255,0.05);
-    color: #fff;
-    font-size: 14px;
-    outline: none;
-}
-.search-bar input::placeholder { color: #666688; }
-.search-bar input:focus { border-color: #4facfe; }
-.search-bar select {
-    padding: 12px 16px;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 12px;
-    background: rgba(255,255,255,0.05);
-    color: #ccc;
-    font-size: 13px;
-    outline: none;
-    cursor: pointer;
-}
-.search-bar select option { background: #1a1a2e; }
-.search-bar .btn {
-    padding: 12px 28px;
-    border: none;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #4facfe, #00f2fe);
-    color: #fff;
-    font-weight: 600;
     cursor: pointer;
     transition: transform 0.2s;
 }
-.search-bar .btn:hover { transform: scale(1.03); }
+.topbar .user button:hover { transform: scale(1.05); }
 
-/* ========== 8. 列表 ========== */
-.rlist {
+.main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 16px;
+    display: flex;
+    gap: 16px;
+}
+.content { flex: 1; min-width: 0; }
+.sidebar {
+    width: 260px;
+    flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 12px;
 }
+@media (max-width: 900px) {
+    .main { flex-direction: column; }
+    .sidebar { width: 100%; max-width: 300px; margin: 0 auto; }
+}
+
+/* ============================================================
+   5. 面板 & 卡片（旧版毛玻璃）
+   ============================================================ */
+.panel {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(12px);
+    border: 1px solid #e8ecff;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+}
+.panel h3 {
+    font-size: 15px;
+    margin-bottom: 10px;
+    color: #5a5a8a;
+}
+.loading {
+    text-align: center;
+    padding: 30px;
+    color: #bbc;
+}
+
+/* ============================================================
+   6. 搜索栏（旧版）
+   ============================================================ */
+.search-bar {
+    display: flex;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(12px);
+    border: 1px solid #e8ecff;
+    border-radius: 14px;
+    padding: 10px;
+    margin-bottom: 14px;
+}
+.search-bar input {
+    flex: 1;
+    border: 2px solid #e8ecff;
+    padding: 9px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    background: #fff;
+    transition: border-color 0.3s;
+}
+.search-bar input:focus { border-color: #8cb4ff; }
+.search-bar select {
+    border: 2px solid #e8ecff;
+    padding: 9px 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    background: #fff;
+    cursor: pointer;
+}
+.search-bar button {
+    background: linear-gradient(135deg, #88c8f8, #d8b0f8);
+    color: #fff;
+    border: none;
+    padding: 9px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s;
+}
+.search-bar button:hover { transform: scale(1.03); }
+
+/* ============================================================
+   7. 列表（旧版）
+   ============================================================ */
+.rlist { display: flex; flex-direction: column; gap: 4px; }
 .ritem {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 12px 16px;
-    border-radius: 12px;
-    background: rgba(255,255,255,0.03);
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: all 0.2s;
     border: 1px solid transparent;
-    flex-wrap: wrap;
-    gap: 8px;
+    transition: all 0.2s;
 }
 .ritem:hover {
-    background: rgba(255,255,255,0.07);
-    border-color: rgba(79,172,254,0.2);
+    background: #f8f9ff;
+    border-color: #d8dcff;
+    transform: translateY(-1px);
 }
-.ritem .ri { flex: 1; min-width: 120px; }
-.ritem .rt { font-weight: 600; font-size: 14px; }
-.ritem .rs { color: #8888aa; font-size: 12px; }
-.ritem .rd { color: #666688; font-size: 12px; }
+.ritem .ri { flex: 1; min-width: 0; }
+.ritem .rt {
+    font-weight: 600;
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.ritem .rs { color: #99a; font-size: 11px; }
 .ritem .rts {
     font-size: 10px;
-    padding: 2px 10px;
-    border-radius: 20px;
-    background: rgba(79,172,254,0.15);
-    color: #4facfe;
+    padding: 1px 7px;
+    border-radius: 8px;
+    background: #e8ecff;
+    color: #78b8f8;
 }
+.ritem .rd { color: #aab; font-size: 11px; }
 .ritem.playing {
-    border-color: rgba(79,172,254,0.4);
-    background: rgba(79,172,254,0.08);
+    border-color: #78b8f8;
+    background: rgba(120, 184, 248, 0.08);
 }
-.ritem.playing .rt { color: #4facfe; }
+.ritem.playing .rt { color: #78b8f8; }
 
-/* ========== 9. 表单 ========== */
+/* ============================================================
+   8. 表单 & 按钮（旧版）
+   ============================================================ */
 .form-row {
     display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
+    gap: 8px;
     margin-bottom: 10px;
+    flex-wrap: wrap;
 }
 .form-row input, .form-row select {
     flex: 1;
-    min-width: 120px;
-    padding: 10px 14px;
-    border: 1px solid rgba(255,255,255,0.1);
+    min-width: 100px;
+    border: 2px solid #e8ecff;
+    padding: 8px 12px;
     border-radius: 10px;
-    background: rgba(255,255,255,0.05);
-    color: #fff;
     font-size: 13px;
     outline: none;
+    background: #fff;
+    transition: border-color 0.3s;
 }
-.form-row input::placeholder { color: #666688; }
-.form-row input:focus { border-color: #4facfe; }
-.form-row select option { background: #1a1a2e; }
+.form-row input:focus, .form-row select:focus { border-color: #8cb4ff; }
 
-/* ========== 10. 按钮 ========== */
 .btn-sm {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 8px;
-    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    background: linear-gradient(135deg, #88c8f8, #d8b0f8);
     color: #fff;
+    border: none;
+    padding: 7px 14px;
+    border-radius: 8px;
     font-size: 12px;
     cursor: pointer;
     transition: transform 0.2s;
 }
 .btn-sm:hover { transform: scale(1.05); }
-.btn-sm.danger { background: linear-gradient(135deg, #f5576c, #ff6b81); }
-.btn-sm.success { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+.btn-sm.danger { background: #ff6b8a; }
+.btn-sm.success { background: #43e97b; color: #fff; }
 
-/* ========== 11. 列表项 ========== */
 .pitem {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    gap: 10px;
-    flex-wrap: wrap;
+    border-bottom: 1px solid #f0f2ff;
+    gap: 8px;
 }
 .pitem:last-child { border: none; }
 .pitem .pn { font-weight: 600; font-size: 13px; }
 
-.loading {
-    text-align: center;
-    padding: 40px;
-    color: #666688;
+/* ============================================================
+   9. 黑胶唱片（旧版）
+   ============================================================ */
+.disc {
+    margin: 0 auto;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #e8e0f8, #c8d0f0, #a0b8e8);
+    position: relative;
+    animation: spin 10s linear infinite;
+    animation-play-state: paused;
+    box-shadow: 0 0 60px rgba(140, 160, 255, 0.25);
 }
-
-/* ========== 12. Toast ========== */
-.toast {
-    position: fixed;
-    bottom: 80px;
+.disc.playing { animation-play-state: running; }
+.disc .dc {
+    position: absolute;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    padding: 12px 24px;
-    border-radius: 12px;
-    background: rgba(0,0,0,0.85);
-    backdrop-filter: blur(12px);
-    color: #fff;
-    font-size: 14px;
-    z-index: 999;
-    display: none;
-    max-width: 90%;
-    text-align: center;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid rgba(255, 255, 255, 0.6);
 }
-.toast.err { background: rgba(245,87,108,0.9); }
+.disc .dc img { width: 100%; height: 100%; object-fit: cover; }
+.disc .dh {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #d8d8f0;
+    z-index: 2;
+}
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
 
-/* ========== 13. 浮动面板（歌词 & 信息） ========== */
+/* ============================================================
+   10. 浮动歌词 & 信息（旧版）
+   ============================================================ */
 .lyric-panel {
     position: fixed;
-    right: 16px;
-    top: 80px;
-    width: 280px;
+    right: 8px;
+    top: 70px;
+    width: 260px;
     max-height: 50vh;
     overflow-y: auto;
-    background: rgba(20,20,40,0.92);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid #e8ecff;
     border-radius: 14px;
     padding: 14px;
     z-index: 99;
@@ -355,25 +406,26 @@ body {
     opacity: 1;
     transform: translateX(0);
 }
-.lyric-panel .la { color: #4facfe; font-weight: 700; font-size: 15px; }
-.lyric-panel .li { color: #8888aa; }
+.lyric-panel .la { color: #6c6cff; font-weight: 700; font-size: 15px; }
+.lyric-panel .li { color: #bbc; }
 #lyric-float {
-    right: auto;
-    left: 16px;
-    top: 80px;
-    width: 280px;
+    top: 70px !important;
+    left: 8px !important;
+    right: auto !important;
 }
 
-/* ========== 14. 播放器 ========== */
+/* ============================================================
+   11. 底部播放器（旧版主题）
+   ============================================================ */
 .player {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 64px;
-    background: rgba(20,20,40,0.92);
+    height: 68px;
+    background: rgba(255, 255, 255, 0.65);
     backdrop-filter: blur(16px);
-    border-top: 1px solid rgba(255,255,255,0.06);
+    border-top: 1px solid #e8ecff;
     display: flex;
     align-items: center;
     padding: 0 16px;
@@ -386,52 +438,66 @@ body {
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
-    background: rgba(255,255,255,0.06);
+    animation: spin 10s linear infinite;
+    animation-play-state: paused;
+    background: linear-gradient(135deg, #e8ecff, #f8e8ff);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 22px;
-    animation: spin 10s linear infinite;
-    animation-play-state: paused;
+    cursor: pointer;
 }
-.player .pcover img { width: 100%; height: 100%; object-fit: cover; }
 .player .pcover.playing { animation-play-state: running; }
-.player .pinfo { min-width: 100px; flex: 1; max-width: 200px; }
-.player .pn { font-weight: 600; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.player .pa { color: #888; font-size: 11px; }
-.player .pctrls { display: flex; align-items: center; gap: 4px; }
+.player .pcover img { width: 100%; height: 100%; object-fit: cover; }
+.player .pinfo { min-width: 120px; max-width: 200px; }
+.player .pn {
+    font-weight: 600;
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #4a4a7a;
+}
+.player .pa { color: #99a; font-size: 11px; }
+.player .pctrls {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+    justify-content: center;
+}
 .player .pctrls button {
     background: none;
     border: none;
-    color: #ccc;
     font-size: 14px;
     cursor: pointer;
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    transition: all 0.2s;
+    color: #88b8e8;
+    transition: background 0.2s;
 }
-.player .pctrls button:hover { background: rgba(255,255,255,0.06); }
+.player .pctrls button:hover { background: rgba(120, 180, 248, 0.15); }
 .player .pplay {
-    background: linear-gradient(135deg, #4facfe, #00f2fe) !important;
+    background: linear-gradient(135deg, #88c8f8, #d8b0f8) !important;
     color: #fff !important;
-    width: 40px !important;
-    height: 40px !important;
-    font-size: 18px !important;
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 20px !important;
 }
 .player .pprog {
     flex: 1;
+    max-width: 260px;
     display: flex;
     align-items: center;
     gap: 6px;
-    min-width: 120px;
 }
-.player .pprog span { font-size: 11px; color: #888; min-width: 32px; }
+.player .pprog span { font-size: 10px; color: #aab; min-width: 32px; }
 .player .pprog input {
     flex: 1;
     height: 4px;
     -webkit-appearance: none;
-    background: rgba(255,255,255,0.12);
+    background: #e8ecff;
     border-radius: 2px;
     cursor: pointer;
 }
@@ -440,7 +506,7 @@ body {
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    background: linear-gradient(135deg, #88c8f8, #d8b0f8);
     cursor: pointer;
 }
 .player .pvol { width: 80px; }
@@ -448,7 +514,7 @@ body {
     width: 100%;
     height: 3px;
     -webkit-appearance: none;
-    background: rgba(255,255,255,0.12);
+    background: #e8ecff;
     border-radius: 2px;
     cursor: pointer;
 }
@@ -457,16 +523,16 @@ body {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: #4facfe;
+    background: linear-gradient(135deg, #88c8f8, #d8b0f8);
     cursor: pointer;
 }
 .player .pspeed { position: relative; }
 .player .pspeed .btn-sm {
+    background: rgba(0,0,0,0.04);
+    color: #4a4a6a;
+    border: 1px solid #e8ecff;
     padding: 4px 10px;
     border-radius: 6px;
-    background: rgba(255,255,255,0.06);
-    color: #ccc;
-    border: none;
     font-size: 11px;
     cursor: pointer;
 }
@@ -474,28 +540,48 @@ body {
     position: absolute;
     bottom: 40px;
     right: 0;
-    background: rgba(20,20,40,0.95);
-    backdrop-filter: blur(12px);
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
     padding: 4px;
-    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     z-index: 200;
+    border: 1px solid #e8ecff;
 }
 #spd-menu div {
     padding: 6px 14px;
     cursor: pointer;
+    border-radius: 8px;
     font-size: 13px;
-    border-radius: 4px;
-    color: #ccc;
+    color: #4a4a6a;
 }
-#spd-menu div:hover { background: rgba(255,255,255,0.06); }
+#spd-menu div:hover { background: #f0f0ff; }
 #spd-menu.hidden { display: none; }
 
-/* ========== 15. 响应式 ========== */
+/* ============================================================
+   12. Toast（旧版）
+   ============================================================ */
+.toast {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    background: linear-gradient(135deg, #88c8f8, #d8b0f8);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 10px;
+    z-index: 999;
+    display: none;
+    font-size: 14px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+.toast.err { background: #ff6b8a; }
+
+/* ============================================================
+   13. 响应式
+   ============================================================ */
 @media (max-width: 900px) {
     .player .pinfo { max-width: 120px; }
     .player .pvol { width: 60px; }
-    .player .pprog { min-width: 80px; }
+    .player .pprog { max-width: 150px; }
     .lyric-panel, #lyric-float { width: 200px; }
 }
 @media (max-width: 700px) {
@@ -503,18 +589,11 @@ body {
     .topbar .nav { justify-content: center; }
     .topbar .user { justify-content: center; }
     .search-bar { flex-direction: column; }
-    .search-bar input, .search-bar select, .search-bar .btn { width: 100%; }
+    .search-bar input, .search-bar select, .search-bar button { width: 100%; }
     .player { flex-wrap: wrap; height: auto; padding: 8px 12px; gap: 6px; }
     .player .pinfo { max-width: 100%; }
-    .player .pprog { order: 10; flex-basis: 100%; }
+    .player .pprog { order: 10; flex-basis: 100%; max-width: 100%; }
     .player .pvol { width: 50px; }
+    .sidebar { max-width: 100%; }
     .lyric-panel, #lyric-float { width: 150px; font-size: 11px; }
-    .lyric-panel { right: 4px; left: auto; top: 70px; }
-    #lyric-float { left: 4px; right: auto; top: 70px; }
-}
-
-/* ========== 16. 黑胶唱片动画 ========== */
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
 }

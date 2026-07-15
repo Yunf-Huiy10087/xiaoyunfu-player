@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎧 小云浮音乐耳机 - 管理后台</title>
+    <title>🎧 小云浮音乐耳机</title>
+    <link rel="icon" href="/static/img/Yunf_Huiy10087_Transparent.webp" type="image/webp">
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
@@ -14,7 +15,7 @@
     <div id="login-page">
         <div class="login-box">
             <h1>🎧 小云浮音乐耳机</h1>
-            <p class="sub">管理员后台 · 音视频处理服务</p>
+            <p class="sub">Xiaoyunfu Music Earbuds</p>
             <div id="form-login">
                 <input type="text" id="l-username" placeholder="用户名" value="admin">
                 <input type="password" id="l-pass" placeholder="密码">
@@ -40,16 +41,17 @@
             </div>
             <div class="user">
                 <span id="uname">管理员</span>
+                <button onclick="changePwd()">改密</button>
                 <button onclick="doLogout()">退出</button>
             </div>
         </div>
 
-        <!-- 内容 -->
-        <div class="main-content">
+        <!-- 主体 -->
+        <div class="main">
+            <div class="content">
 
-            <!-- ========== 面板1: 搜索 ========== -->
-            <div id="panel-1">
-                <div class="panel">
+                <!-- ========== 面板1: 搜索 ========== -->
+                <div id="panel-1">
                     <div class="search-bar">
                         <input id="kw" placeholder="搜索歌曲...">
                         <select id="src">
@@ -58,88 +60,105 @@
                             <option value="netease">网易云</option>
                             <option value="local">本地</option>
                         </select>
-                        <button class="btn" onclick="doSearch()">搜索</button>
+                        <button onclick="doSearch()">搜索</button>
+                    </div>
+                    <div class="panel">
+                        <div class="rlist" id="rlist"><div class="loading">输入关键词搜索</div></div>
                     </div>
                 </div>
-                <div class="panel">
-                    <div class="rlist" id="rlist"><div class="loading">输入关键词搜索</div></div>
+
+                <!-- ========== 面板2: 歌单 ========== -->
+                <div id="panel-2" class="hidden">
+                    <div class="panel">
+                        <h3>📁 创建歌单</h3>
+                        <div class="form-row">
+                            <input id="pl-name" placeholder="歌单名称">
+                            <select id="pl-public">
+                                <option value="1">公开</option>
+                                <option value="0">私有</option>
+                            </select>
+                            <button class="btn-sm" onclick="createPlaylist()">创建</button>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <h3>📋 我的歌单</h3>
+                        <div id="pl-list"><div class="loading">加载中...</div></div>
+                    </div>
+                    <div class="panel">
+                        <h3>🎵 歌单歌曲</h3>
+                        <div id="pl-songs"><div class="loading">选择歌单查看</div></div>
+                    </div>
                 </div>
+
+                <!-- ========== 面板3: 上传 ========== -->
+                <div id="panel-3" class="hidden">
+                    <div class="panel">
+                        <h3>📤 上传文件</h3>
+                        <div class="form-row">
+                            <input type="file" id="up-file" accept="audio/*,video/*">
+                            <input id="up-title" placeholder="重命名(可选)">
+                            <button class="btn-sm" onclick="uploadFile()">上传</button>
+                        </div>
+                        <div class="form-row" style="margin-top:8px">
+                            <input id="up-url" placeholder="或输入音频URL">
+                            <input id="up-urltitle" placeholder="文件名">
+                            <button class="btn-sm" onclick="uploadUrl()">链接上传</button>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <h3>📂 已上传文件</h3>
+                        <div id="up-list"><div class="loading">加载中...</div></div>
+                    </div>
+                </div>
+
+                <!-- ========== 面板4: 队列 ========== -->
+                <div id="panel-4" class="hidden">
+                    <div class="panel">
+                        <h3>⏳ 转码队列</h3>
+                        <div style="display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap">
+                            <button class="btn-sm" onclick="loadQueue()">🔄 刷新</button>
+                            <button class="btn-sm danger" onclick="clearCompletedTasks()">🗑️ 清空已完成</button>
+                        </div>
+                        <div id="queue-list"><div class="loading">加载中...</div></div>
+                    </div>
+                </div>
+
+                <!-- ========== 面板5: 管理 ========== -->
+                <div id="panel-5" class="hidden">
+                    <div class="panel">
+                        <h3>👥 用户管理</h3>
+                        <div id="user-list"><div class="loading">加载中...</div></div>
+                    </div>
+                    <div class="panel">
+                        <h3>🔄 系统维护</h3>
+                        <div style="display:flex;gap:10px;flex-wrap:wrap">
+                            <button class="btn-sm danger" onclick="clearAllCache()">🗑️ 清空所有缓存</button>
+                            <button class="btn-sm" onclick="runCacheCleanup()">🧹 立即清理</button>
+                        </div>
+                        <div style="margin-top:10px;font-size:12px;color:#99a">
+                            <span id="cache-info">缓存大小: 加载中...</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-            <!-- ========== 面板2: 歌单 ========== -->
-            <div id="panel-2" class="hidden">
-                <div class="panel">
-                    <h3>📁 创建歌单</h3>
-                    <div class="form-row">
-                        <input id="pl-name" placeholder="歌单名称">
-                        <select id="pl-public">
-                            <option value="1">公开</option>
-                            <option value="0">私有</option>
-                        </select>
-                        <button class="btn-sm" onclick="createPlaylist()">创建</button>
+            <!-- ========== 侧边栏（黑胶唱片 + 全服歌单） ========== -->
+            <div class="sidebar">
+                <div class="panel" style="text-align:center">
+                    <div class="disc" id="disc">
+                        <div class="dc">
+                            <img id="disc-img" src="" style="display:none">
+                            <img id="disc-placeholder" src="/static/img/disc.webp" style="width:100%;height:100%;border-radius:50%;object-fit:cover">
+                        </div>
+                        <div class="dh"></div>
                     </div>
                 </div>
                 <div class="panel">
-                    <h3>📋 我的歌单</h3>
-                    <div id="pl-list"><div class="loading">加载中...</div></div>
-                </div>
-                <div class="panel">
-                    <h3>🎵 歌单歌曲</h3>
-                    <div id="pl-songs"><div class="loading">选择歌单查看</div></div>
+                    <h3>全服歌单</h3>
+                    <div id="global-pl"><div class="loading">加载中...</div></div>
                 </div>
             </div>
-
-            <!-- ========== 面板3: 上传 ========== -->
-            <div id="panel-3" class="hidden">
-                <div class="panel">
-                    <h3>📤 上传文件</h3>
-                    <div class="form-row">
-                        <input type="file" id="up-file" accept="audio/*,video/*">
-                        <input id="up-title" placeholder="重命名(可选)">
-                        <button class="btn-sm" onclick="uploadFile()">上传</button>
-                    </div>
-                    <div class="form-row" style="margin-top:8px">
-                        <input id="up-url" placeholder="或输入音频URL">
-                        <input id="up-urltitle" placeholder="文件名">
-                        <button class="btn-sm" onclick="uploadUrl()">链接上传</button>
-                    </div>
-                </div>
-                <div class="panel">
-                    <h3>📂 已上传文件</h3>
-                    <div id="up-list"><div class="loading">加载中...</div></div>
-                </div>
-            </div>
-
-            <!-- ========== 面板4: 队列 ========== -->
-            <div id="panel-4" class="hidden">
-                <div class="panel">
-                    <h3>⏳ 转码队列</h3>
-                    <div style="display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap">
-                        <button class="btn-sm" onclick="loadQueue()">🔄 刷新</button>
-                        <button class="btn-sm danger" onclick="clearCompletedTasks()">🗑️ 清空已完成</button>
-                    </div>
-                    <div id="queue-list"><div class="loading">加载中...</div></div>
-                </div>
-            </div>
-
-            <!-- ========== 面板5: 管理 ========== -->
-            <div id="panel-5" class="hidden">
-                <div class="panel">
-                    <h3>👥 用户管理</h3>
-                    <div id="user-list"><div class="loading">加载中...</div></div>
-                </div>
-                <div class="panel">
-                    <h3>🔄 系统维护</h3>
-                    <div style="display:flex;gap:10px;flex-wrap:wrap">
-                        <button class="btn-sm danger" onclick="clearAllCache()">🗑️ 清空所有缓存</button>
-                        <button class="btn-sm" onclick="runCacheCleanup()">🧹 立即清理过期缓存</button>
-                    </div>
-                    <div style="margin-top:10px;font-size:13px;color:#888">
-                        <span id="cache-info">缓存大小: 加载中...</span>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 
@@ -171,7 +190,7 @@
         </div>
         <div class="pprog">
             <span id="ptime">00:00</span>
-            <input type="range" id="pseek" min="0" max="100" value="0" oninput="seek(this.value)">
+            <input type="range" id="pseek" min="0" max="100" value="0" onchange="seek(this.value)">
             <span id="pdura">00:00</span>
         </div>
         <div class="pvol">
@@ -199,11 +218,7 @@
     <script src="/static/js/app.js"></script>
     <script src="/static/js/player.js"></script>
 
-    <!-- ========================================================== -->
-    <!-- 启动后自动隐藏管理员标签（非管理员不显示） -->
-    <!-- ========================================================== -->
     <script>
-        // 页面加载后，检查是否为管理员
         document.addEventListener('DOMContentLoaded', function() {
             var user = window.user || {};
             if (!user.is_admin) {
