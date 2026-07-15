@@ -1,0 +1,44 @@
+# ============================================================
+# 小云浮音视频处理服务 - 控制端 Docker 镜像
+# ============================================================
+# 构建命令:
+#   docker build -f Dockerfile.control -t xiaoyunfu-control:latest .
+# ============================================================
+
+FROM python:3.11-slim
+
+# 设置工作目录
+WORKDIR /app
+
+# 设置环境变量
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# 安装系统依赖（ffmpeg 用于转码）
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    && rm -rf /var/lib/apt/lists/*
+
+# 复制控制端依赖文件
+COPY control/requirements.txt /app/control/
+
+# 安装 Python 依赖
+RUN pip install -r /app/control/requirements.txt
+
+# 复制控制端代码
+COPY control/ /app/
+
+# 创建数据目录
+RUN mkdir -p /app/data /app/uploads /app/cache
+
+# 暴露端口
+EXPOSE 2587
+
+# 健康检查
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD python -c "import requests; requests.get('http://localhost:2587/health')" || exit 1
+
+# 启动命令
+CMD ["python", "main.py"]

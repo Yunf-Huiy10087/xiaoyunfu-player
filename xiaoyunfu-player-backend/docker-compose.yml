@@ -1,0 +1,98 @@
+# ============================================================
+# 小云浮音视频处理服务 - Docker Compose 编排文件
+# ============================================================
+# 启动命令: docker compose up -d
+# 停止命令: docker compose down
+# 查看日志: docker compose logs -f
+# ============================================================
+
+version: "3.8"
+
+services:
+  # ============================================================
+  # 控制端 (端口: 2587)
+  # ============================================================
+  control:
+    build:
+      context: .
+      dockerfile: Dockerfile.control
+    container_name: xiaoyunfu-control
+    ports:
+      - "2587:2587"
+    environment:
+      - MODE=control
+      - CONFIG_PATH=/app/config/config.json
+    volumes:
+      # 配置文件（只读挂载）
+      - ./volumes/config/config.json:/app/config/config.json:ro
+      # 数据目录（数据库）
+      - ./volumes/data:/app/data
+      # 上传目录
+      - ./volumes/uploads:/app/uploads
+      # 缓存目录
+      - ./volumes/cache:/app/cache
+    depends_on:
+      - plugin
+    restart: unless-stopped
+    networks:
+      - xiaoyunfu-net
+
+  # ============================================================
+  # 插件端 (端口: 5287)
+  # ============================================================
+  plugin:
+    build:
+      context: .
+      dockerfile: Dockerfile.plugin
+    container_name: xiaoyunfu-plugin
+    ports:
+      - "5287:5287"
+    environment:
+      - MODE=plugin
+      - CONFIG_PATH=/app/config/config.json
+    volumes:
+      # 配置文件（只读挂载）
+      - ./volumes/config/config.json:/app/config/config.json:ro
+      # 插件代码目录（闭源插件）
+      - ./volumes/plugin/codes:/app/plugins
+      # 插件配置目录
+      - ./volumes/plugin/configs:/app/configs
+      # 插件数据目录
+      - ./volumes/plugin/data:/app/data
+    restart: unless-stopped
+    networks:
+      - xiaoyunfu-net
+
+  # ============================================================
+  # 前端容器 (端口: 8725 网页, 8752 MC API)
+  # ============================================================
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: xiaoyunfu-frontend
+    ports:
+      - "8725:8725"
+      - "8752:8752"
+    environment:
+      - MODE=frontend
+      - CONFIG_PATH=/app/config/config.json
+      - CONTROL_URL=http://control:2587
+    volumes:
+      # 配置文件（只读挂载）
+      - ./volumes/config/config.json:/app/config/config.json:ro
+      # 静态文件
+      - ./frontend/static:/app/static
+    depends_on:
+      - control
+    restart: unless-stopped
+    networks:
+      - xiaoyunfu-net
+
+# ============================================================
+# 网络配置
+# ============================================================
+networks:
+  xiaoyunfu-net:
+    driver: bridge
+    name: xiaoyunfu-net

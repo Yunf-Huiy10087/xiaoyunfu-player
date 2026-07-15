@@ -1,0 +1,41 @@
+# ============================================================
+# 小云浮音视频处理服务 - 前端容器 Docker 镜像
+# ============================================================
+# 构建命令:
+#   docker build -f Dockerfile.frontend -t xiaoyunfu-frontend:latest .
+# ============================================================
+
+FROM python:3.11-slim
+
+# 设置工作目录
+WORKDIR /app
+
+# 设置环境变量
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# 前端容器不需要 ffmpeg，只需要 Python 运行环境
+
+# 复制前端依赖文件
+COPY frontend/requirements.txt /app/frontend/
+
+# 安装 Python 依赖
+RUN pip install -r /app/frontend/requirements.txt
+
+# 复制前端代码
+COPY frontend/ /app/
+
+# 创建配置目录
+RUN mkdir -p /app/data
+
+# 暴露端口（网页 + MC API）
+EXPOSE 8725 8752
+
+# 健康检查（检查网页端口）
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD python -c "import requests; requests.get('http://localhost:8725/health')" || exit 1
+
+# 启动命令
+CMD ["python", "main.py"]
